@@ -11,11 +11,12 @@ productos_subtipos={"Essential Force 5500":{"10ml":245,"30ml":500,"100ml":1125},
 
 pedido={}
 
-
+ciclo=True
 def producto(numero):
     return productos[numero-1]
 
 def subtipo(producto,subtipos):
+    os.system("cls")
     i=1
     print("Producto\t\t\t\t\t"+"Precio MXM")
     for a,b in subtipos.items():
@@ -32,28 +33,37 @@ def subtipo(producto,subtipos):
 
 def precio(descuento):
     total=0
+    os.system("cls")
+    print("Producto\t\t\tCantidad\t\t\tTotal sin descuento(MXM)")
     for a,b in pedido.items():
-        print(a)
+        print(str(a)+"\t\t"+str(b["cantidad"])+"\t\t\t\t\t"+str(b["precio"]*b["cantidad"]))
         total=total+(b["precio"]*b["cantidad"])
     
-    print(total)
-    descuento=total*descuento
-    print(descuento)
-    total=total-descuento
-    print(total)
+    print("\n\n")
+    print("El total sin descuento es: $"+str(total))
+    descuento_precio=total*descuento
+    print("El descuento del "+str(descuento*100)+"% es de: $"+str(descuento_precio))
+    total=total-descuento_precio
+    print("El precio a pagar es: $"+str(total))
         
 
-    
-    
-print("Seleccion de Productos\n")
-i=1
-for a in productos:
-    print(str(i)+" "+a)
-    i=i+1
 
-selector=int(input("Ingresa el numero del producto a seleccionar:"))
-seleccion=producto(selector)
-subtipo(seleccion,productos_subtipos[seleccion])
+while ciclo:
+    os.system("cls")
+    print("Seleccion de Productos\n")
+    i=1
+    for a in productos:
+        print(str(i)+" "+a)
+        i=i+1
+    selector=int(input("Ingresa el numero del producto a seleccionar:"))
+    seleccion=producto(selector)
+    subtipo(seleccion,productos_subtipos[seleccion])
+    os.system("cls")
+    logica=int(input("Escribe 1 para ingresar otro producto o escribe 0 para ingresar el descuento:"))
+    if logica!=1:
+        ciclo=False
+
+os.system("cls")
 descuento=float(input("Ingresa el descuento en numero decimal:"))
 precio(descuento)
 
